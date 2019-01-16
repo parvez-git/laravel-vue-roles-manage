@@ -52,7 +52,10 @@
                     </v-flex>
                     <v-flex xs12 md2>
                         <div class="pt-2">
-                            <v-chip small :class="`caption white--text ${user.role}`">Administrator</v-chip>
+                            <v-chip v-for="role in user.roles" :key="role.id"
+                                color="green darken-3" text-color="white" small>
+                                {{ role.name }}
+                            </v-chip>
                         </div>
                     </v-flex>
                     <v-flex xs12 md2>
@@ -105,12 +108,14 @@
                 users: [],
                 url: '/getusers',
                 pagination: [],
+                roles: [],
                 user: {},
                 snackbar: false
             }
         },
         created(){
             this.getUsers()
+            this.getRoles()
 
             eventBus.$on('pushUserData', (user) => { 
                 this.users.unshift(user)
@@ -136,13 +141,27 @@
                         console.log(error);
                     });
             },
+            getRoles() {
+                let vm = this
+                axios.get('/role-list')
+                    .then( (response) => {
+                        this.roles = (response.data)
+                    })
+                    .catch( (error) => {
+                        console.log(error);
+                    });
+            },
             openCreateUserDialog() {
-                eventBus.$emit('openCreateUserDialog',{dialog: true})
+                eventBus.$emit('openCreateUserDialog', {
+                    dialog: true,
+                    roles : this.roles
+                })
             },            
             openEditUserDialog(user) {
                 eventBus.$emit('openEditUserDialog', {
                     dialog: true,
-                    user  : user
+                    user  : user,
+                    roles : this.roles
                 })
             },
             deleteUser(user) {
@@ -191,15 +210,5 @@
     } 
     .cardborder:nth-child(4n+0){
         border-left: 4px solid tomato;
-    }
-
-    .v-chip.editor{
-        background-color: green;
-    }    
-    .v-chip.caption{
-        background-color: orange;
-    }  
-    .v-chip.writer{
-        background-color: tomato;
     }
 </style>

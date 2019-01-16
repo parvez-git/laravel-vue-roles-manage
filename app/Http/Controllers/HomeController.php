@@ -28,10 +28,12 @@ class HomeController extends Controller
         return view('home');
     }
 
-
+    /**
+     * USER CRUD
+     */
     public function getusers()
     {
-        return User::latest()->paginate(10);
+        return User::with('roles')->latest()->paginate(10);
     }
 
     public function storeuser(Request $request)
@@ -47,6 +49,8 @@ class HomeController extends Controller
             'email'     => $request->email,
             'password'  => Hash::make($request->password)
         ]);
+
+        $user->assignRole($request->role);
 
         return response()->json($user, 200);
     }
@@ -65,14 +69,16 @@ class HomeController extends Controller
             'email' => $request->email
         ]);
 
+        $user->syncRoles($request->selectedroles);
+
         return response()->json($updated, 200);
     }
 
     public function deleteuser($id)
     {
-        $user   = User::findOrFail($id);
-        $delete = $user->delete();
+        $user = User::findOrFail($id);
+        $deleted = $user->delete();
 
-        return response()->json($delete, 200);
+        return response()->json($deleted, 200);
     }
 }

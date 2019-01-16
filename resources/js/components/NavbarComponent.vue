@@ -11,6 +11,9 @@
 
 			<v-spacer></v-spacer>
 
+			<!-- TEMPORARY -->
+			<a href="home" color="red grey--text"><v-icon>home</v-icon></a>
+
 			<v-btn flat>
 				<span>Sign Out</span>
 				<v-icon right>exit_to_app</v-icon>
@@ -63,9 +66,9 @@
       return {
         drawer: true,
         items: [
-          { title: 'Dashboard', icon: 'dashboard', route: '/dashboard' },
+          { title: 'Dashboard', icon: 'dashboard', route: '/home' },
           { title: 'Users', icon: 'people', route: '/users' },
-          { title: 'viewone', icon: 'people', route: '/viewone' }
+          { title: 'Roles & Permissions', icon: 'settings', route: '/role-permission-list' }
         ],
         mini: true
       }

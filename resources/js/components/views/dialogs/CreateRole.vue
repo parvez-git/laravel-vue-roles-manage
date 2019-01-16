@@ -2,35 +2,37 @@
 
 	<v-dialog v-model="dialog" max-width="400">
         <v-card>
-            <v-card-title class="subheading grey--text text-uppercase">Edit User</v-card-title>
+            <v-card-title class="subheading grey--text text-uppercase">Add New Role</v-card-title>
 
 			<v-form @submit.prevent="submit">
 	            <v-card-text>
 	                <v-container py-0>
 	                    <v-layout wrap>
-
 	                  		<v-flex xs12>
-	                    		<v-text-field label="Name" v-model="fields.name" prepend-icon="person_outline" hide-details required></v-text-field>
-	                    		<div v-if="errors && errors.name" class="caption red--text font-italic mt-1">{{ errors.name[0] }}</div>
+	                    		<v-text-field 
+	                    			label="Role Name" 
+	                    			v-model="fields.name" 
+	                    			prepend-icon="person_outline" 
+	                    			hide-details 
+	                    			required>
+	                    		</v-text-field>
+	                    		<div 
+	                    			v-if="errors && errors.name" 
+	                    			class="caption red--text font-italic mt-1">
+	                    			{{ errors.name[0] }}
+	                    		</div>
 	                  		</v-flex>
-	                  		<v-flex xs12>
-	                    		<v-text-field label="Email" v-model="fields.email" prepend-icon="mail_outline" hide-details required></v-text-field>
-	                    		<div v-if="errors && errors.email" class="caption red--text font-italic mt-1">{{ errors.email[0] }}</div>
-	                  		</v-flex>
-
-							<div class="subheading text-uppercase mt-4">Roles:</div>
 	                  		<v-flex xs12>
 	                  			<v-checkbox 
-	                  				v-for="role in fields.roles" 
-	                  				:key="role.id" 
-	                  				:label="role.name" 
-	                  				:value="role.name" 
-	                  				v-model="fields.selectedroles"
+	                  				v-for="permission in fields.permissions" 
+	                  				:key="permission.id" 
+	                  				:label="permission.name" 
+	                  				:value="permission.name" 
+	                  				v-model="fields.selectedpermissions"
 	                  				hide-details
 	                  				multiple>
 	                  			</v-checkbox>
 	                  		</v-flex>
-							
 	                  </v-layout>
 	              </v-container>
 	            </v-card-text>
@@ -42,7 +44,7 @@
 	                    Close
 	                </v-btn>
 
-	                <v-btn color="green" flat="flat" :loading="loading" @click="submit">
+	                <v-btn color="green" flat="flat" :loading="loading" type="submit">
 	                    Save
 	                </v-btn>
 	            </v-card-actions>
@@ -64,23 +66,20 @@
             }
         },
         created() {
-        	eventBus.$on('openEditUserDialog', (data) => { 
+        	eventBus.$on('openCreateRoleDialog', (data) => { 
         		this.dialog = data.dialog
-        		this.fields.id = data.user.id
-        		this.fields.name = data.user.name
-				this.fields.email = data.user.email
-        		this.fields.roles = data.roles
+        		this.fields.permissions = data.permissions
         	})
         },
 		methods: {
 		    submit() {
-			    if (this.fields.id) {
+			    if (true) {
 			        this.loading = true
 			        this.errors = {}
-			        axios.put('/updateuser', this.fields).then(response => {
+			        axios.post('/role-store', this.fields).then(response => {
 			          this.fields = {}
+			          this.pushRoleData(response.data)
 			          this.loading = false
-			          this.pushUpdatedUser(response.data)
 			          this.dialog = false
 			        }).catch(error => {
 			          	this.loading = false
@@ -92,10 +91,12 @@
 		    },
 		    closeDialog() {
 		    	this.dialog = false
-		    	this.errors = {}
+				this.errors = {}
+				this.fields.name = null
+				this.fields.selectedpermissions = []
 		    },
-            pushUpdatedUser(updated) {
-                eventBus.$emit('pushUpdatedUser',updated)
+            pushRoleData(userData) {
+                eventBus.$emit('pushRoleData',userData)
             }
 		 },
     }

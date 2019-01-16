@@ -10,17 +10,21 @@
 	                    <v-layout wrap>
 
 	                  		<v-flex xs12>
-	                    		<v-text-field label="Name" v-model="fields.name" prepend-icon="person_outline" required></v-text-field>
-	                    		<div v-if="errors && errors.name" class="caption red--text font-italic">{{ errors.name[0] }}</div>
+	                    		<v-text-field label="Name" v-model="fields.name" prepend-icon="person_outline" hide-details required></v-text-field>
+	                    		<div v-if="errors && errors.name" class="caption red--text font-italic mt-1">{{ errors.name[0] }}</div>
 	                  		</v-flex>
 	                  		<v-flex xs12>
-	                    		<v-text-field label="Email" v-model="fields.email" prepend-icon="mail_outline" required></v-text-field>
-	                    		<div v-if="errors && errors.email" class="caption red--text font-italic">{{ errors.email[0] }}</div>
+	                    		<v-text-field label="Email" v-model="fields.email" prepend-icon="mail_outline" hide-details required></v-text-field>
+	                    		<div v-if="errors && errors.email" class="caption red--text font-italic mt-1">{{ errors.email[0] }}</div>
 	                  		</v-flex>
 	                  		<v-flex xs12>
-	                    		<v-text-field label="Password" v-model="fields.password" type="password" prepend-icon="lock_open" required></v-text-field>
-	                    		<div v-if="errors && errors.password" class="caption red--text font-italic">{{ errors.password[0] }}</div>
+	                    		<v-text-field label="Password" v-model="fields.password" type="password" prepend-icon="lock_open" hide-details required></v-text-field>
+	                    		<div v-if="errors && errors.password" class="caption red--text font-italic mt-1">{{ errors.password[0] }}</div>
 	                  		</v-flex>
+
+							<v-flex xs12>
+								<v-select :items="roles" label="Assign role to user" v-model="fields.role" prepend-icon="check_circle_outline"></v-select>
+							</v-flex>
 							
 	                  </v-layout>
 	              </v-container>
@@ -52,11 +56,16 @@
             	fields: {},
 				errors: {},
 				loading: false,
+				roles: []
             }
         },
         created() {
-        	eventBus.$on('openCreateUserDialog', (dialog) => { 
-        		this.dialog = dialog 
+        	eventBus.$on('openCreateUserDialog', (data) => { 
+				this.dialog = data.dialog
+
+				let rolesname = []
+        		data.roles.map( (item) => { roles.push(item['name']) })
+				this.roles = rolesname
         	})
         },
 		methods: {
@@ -86,9 +95,3 @@
 		 },
     }
 </script>
-
-<style scoped>
-	.caption.red--text.font-italic{
-		margin-top: -16px !important;
-	}
-</style>

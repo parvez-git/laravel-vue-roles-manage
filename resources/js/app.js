@@ -6,7 +6,11 @@ import Vuetify from 'vuetify'
 import router from './router'
 import 'vuetify/dist/vuetify.min.css'
 
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+    theme: {
+        primary: '#009688'
+    }
+})
 
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default)
