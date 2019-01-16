@@ -2007,7 +2007,7 @@ __webpack_require__.r(__webpack_exports__);
       _this.dialog = data.dialog;
       var rolesname = [];
       data.roles.map(function (item) {
-        roles.push(item['name']);
+        rolesname.push(item['name']);
       });
       _this.roles = rolesname;
     });

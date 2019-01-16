@@ -64,7 +64,7 @@
 				this.dialog = data.dialog
 
 				let rolesname = []
-        		data.roles.map( (item) => { roles.push(item['name']) })
+        		data.roles.map( (item) => { rolesname.push(item['name']) })
 				this.roles = rolesname
         	})
         },
