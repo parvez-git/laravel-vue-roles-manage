@@ -77,19 +77,4 @@ class AdminController extends Controller
         return response()->json($permission, 200);
     }
 
-
-
-    // USER ==============================================
-    public function userView($id)
-    {
-        $user               = User::find($id);
-        $assaignroles       = $user->getRoleNames();
-        $roles              = Role::all();
-        $assaignpermission  = $user->getPermissionsViaRoles();
-
-        return view('user-view')->withUser($user)
-                                ->withRoles($roles)
-                                ->withAssaignroles($assaignroles)
-                                ->withAssaignpermission($assaignpermission);
-    }
 }

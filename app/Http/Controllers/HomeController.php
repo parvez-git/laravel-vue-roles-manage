@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Chat;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -33,7 +34,7 @@ class HomeController extends Controller
      */
     public function getusers()
     {
-        return User::with('roles')->latest()->paginate(10);
+        return User::with('roles')->latest()->paginate(4);
     }
 
     public function storeuser(Request $request)
@@ -76,8 +77,24 @@ class HomeController extends Controller
 
     public function deleteuser($id)
     {
-        $user = User::findOrFail($id);
+        $user    = User::findOrFail($id);
         $deleted = $user->delete();
+
+        if ($deleted) {
+
+            Chat::where('from',$id)->orWhere('to',$id)->delete();
+
+            if($user->profile_picture != 'default.png') {
+
+                $image_path = public_path() . '/images/profile/' . $user->profile_picture;
+
+                if (is_file($image_path) && file_exists($image_path)) {
+
+                    unlink($image_path);
+                }
+            }
+            
+        }
 
         return response()->json($deleted, 200);
     }

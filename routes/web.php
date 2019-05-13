@@ -19,7 +19,7 @@ Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/{any}', 'HomeController@index')->where('any', 'home|users.*');
+Route::get('/{any}', 'HomeController@index')->where('any', 'home|users|roles-permissions|chat|settings.*');
 
 Route::get('/getusers', 'HomeController@getusers')->name('home.getusers');
 Route::post('/storeuser', 'HomeController@storeuser')->name('home.storeuser');
@@ -37,8 +37,13 @@ Route::get('/role-list', 'AdminController@getRoleList')->name('role.all');
 Route::get('/permission-list', 'AdminController@listPermission')->name('permission.list');
 Route::post('/permission-store', 'AdminController@storePermission')->name('permission.store');
 
+Route::get('/chat/user-list', 'ChatController@userlist');
+Route::get('/chat/user-conversations/{id}', 'ChatController@userConversations');
+Route::post('/chat-conversation/send', 'ChatController@sendConversation');
 
-Route::get('/home/user/view/{user}', 'AdminController@userView')->name('user.view');
+Route::post('/settings-upload', 'SettingController@uploadProfilePicture');
+
+
 Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/admin', function() {
         return 'Admin area';

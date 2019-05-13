@@ -11,10 +11,7 @@
 
 			<v-spacer></v-spacer>
 
-			<!-- TEMPORARY -->
-			<a href="home" color="red grey--text"><v-icon>home</v-icon></a>
-
-			<v-btn flat>
+			<v-btn flat @click="signOut">
 				<span>Sign Out</span>
 				<v-icon right>exit_to_app</v-icon>
 			</v-btn>
@@ -26,11 +23,12 @@
 				<v-list class="pa-0">
 					<v-list-tile avatar>
 						<v-list-tile-avatar>
-							<img src="https://randomuser.me/api/portraits/men/85.jpg">
+							<img :src="defaultFile">
 						</v-list-tile-avatar>
 
 						<v-list-tile-content>
-							<v-list-tile-title>John Leider</v-list-tile-title>
+							<v-list-tile-title>{{ user.name }}</v-list-tile-title>
+							<span class="caption grey--text text--lighten-1">{{ user.email }}</span>
 						</v-list-tile-content>
 
 						<v-list-tile-action>
@@ -55,23 +53,54 @@
 					</v-list-tile-content>
 				</v-list-tile>
 			</v-list>
+			
   		</v-navigation-drawer>
 	
 	</nav>
 </template>
 
 <script>
-  export default {
+export default {
+	props: {
+		user: {
+			type: Object,
+			default: null
+		}
+	},
     data () {
-      return {
-        drawer: true,
-        items: [
-          { title: 'Dashboard', icon: 'dashboard', route: '/home' },
-          { title: 'Users', icon: 'people', route: '/users' },
-          { title: 'Roles & Permissions', icon: 'settings', route: '/role-permission-list' }
-        ],
-        mini: true
-      }
-    }
-  }
+        return {
+            drawer: true,
+            items: [
+                { title: 'Dashboard', icon: 'dashboard', route: '/home' },
+                { title: 'Users', icon: 'people', route: '/users' },
+                { title: 'Roles & Permissions', icon: 'how_to_reg', route: '/roles-permissions' },
+                { title: 'Chat', icon: 'chat', route: '/chat' },
+                { title: 'Settings', icon: 'settings', route: '/settings' },
+            ],
+			mini: true,
+
+			defaultFile: '/images/profile/' + this.user.profile_picture
+        }
+	},
+	created() {
+		eventBus.$on('onUpdateUserProfile', (profile) => {
+			this.defaultFile = '/images/profile/' + profile
+		})
+	},
+	methods: {
+		signOut() {
+			axios.post('logout').then(response => {
+				if (response.status === 302 || 401) {
+					document.location.href = "/login";
+				}
+				return;
+			}).catch(error => {
+				console.log(error);
+			});
+		}
+	},
+	mounted() {
+
+	}
+}
 </script>

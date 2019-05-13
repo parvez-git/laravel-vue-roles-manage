@@ -1,0 +1,49 @@
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #999999;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #777777;
+}
+
+.scroll-bar {
+  overflow-y: auto;
+}
+
+.chat-box {
+  max-height: 70vh;
+}
+
+.listitem.grey.lighten-4 > a {
+  border-left: 3px solid teal;
+}
+
+.listitem:nth-child(5n+0) > a {
+  border-left: 3px solid teal;
+}
+
+.listitem:nth-child(5n+1) > a {
+  border-left: 3px solid tomato;
+}
+
+.listitem:nth-child(5n+2) > a {
+  border-left: 3px solid orange;
+}
+
+.listitem:nth-child(5n+3) > a {
+  border-left: 3px solid green;
+}
+
+.listitem:nth-child(5n+4) > a {
+  border-left: 3px solid #3892da;
+}
+

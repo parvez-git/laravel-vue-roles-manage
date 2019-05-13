@@ -2,6 +2,6 @@
 
 @section('content')
 <div class="home">
-    <dashboard-component></dashboard-component>
+    <home-component :user="{{ auth()->user() }}"></home-component>
 </div>
 @endsection

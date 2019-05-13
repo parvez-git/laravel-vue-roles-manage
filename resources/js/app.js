@@ -1,4 +1,3 @@
-
 require('./bootstrap');
 
 import Vue from 'vue'
@@ -11,14 +10,11 @@ Vue.use(Vuetify, {
         primary: '#009688'
     }
 })
+Vue.use(require('vue-moment'));
 
-
-Vue.component('example-component', require('./components/ExampleComponent.vue').default)
-Vue.component('dashboard-component', require('./components/DashboardComponent.vue').default)
-
+Vue.component('home-component', require('./components/HomeComponent.vue').default)
 
 window.eventBus = new Vue()
-
 
 const app = new Vue({
     el: '#app',
