@@ -34,7 +34,7 @@ class HomeController extends Controller
      */
     public function getusers()
     {
-        return User::with('roles')->latest()->paginate(4);
+        return User::with('roles')->latest()->paginate(10);
     }
 
     public function storeuser(Request $request)

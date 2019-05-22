@@ -47,3 +47,98 @@
   border-left: 3px solid #3892da;
 }
 
+.login {
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  width: 320px;
+  display: block;
+  margin: 60px auto;
+  border-radius: 3px;
+  box-shadow: 0px 0px 5px #aaaaaa;
+}
+
+.login .header {
+  background-color: teal;
+  padding: 8px 15px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.login .body {
+  display: block;
+  padding: 8px 25px;
+}
+
+.login .body .box-inner {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.login .body .box-inner label {
+  font-size: 16px;
+  margin-bottom: 5px;
+  display: block;
+  color: #777777;
+}
+
+.login .body .box-inner .box input {
+  border: 1px solid teal;
+  padding: 8px;
+  width: 100%;
+  display: block;
+}
+
+.login .body .box-inner .box input:focus {
+  outline: none;
+}
+
+.login .body .box-inner .box .is-invalid {
+  border: 1px solid red;
+}
+
+.login .body .box-inner .box .invalid-feedback {
+  color: red;
+  font-size: 12px;
+}
+
+.login .body .box-inner .box button {
+  padding: 8px 25px;
+  background-color: teal;
+  border: 1px solid teal;
+  color: white;
+  font-weight: bold;
+}
+
+.login .body .box-inner .box-submit {
+  display: inline-flex;
+  margin-bottom: 8px;
+}
+
+.login .body .box-inner .box-submit .link {
+  margin-top: 8px;
+  margin-left: 15px;
+}
+
+.login .body .box-inner .box-submit .link a {
+  color: teal;
+}
+
+.login .body .box-inner .box-remember {
+  display: inline-block;
+}
+
+.login .body .box-inner .box-remember .check-input {
+  float: left;
+  margin-top: 3px;
+  margin-right: 5px;
+}
+
+.login .body .box-inner .box-remember .check-label {
+  width: auto;
+  float: left;
+}
+

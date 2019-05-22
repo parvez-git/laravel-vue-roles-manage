@@ -2566,7 +2566,6 @@ __webpack_require__.r(__webpack_exports__);
     getRoles: function getRoles() {
       var _this3 = this;
 
-      var vm = this;
       axios.get('/role-list').then(function (response) {
         _this3.roles = response.data;
       })["catch"](function (error) {
@@ -2678,11 +2677,11 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     user: {
       type: Object,
-      drfault: null
+      "default": null
     },
     userselected: {
       type: Object,
-      drfault: null
+      "default": null
     },
     conversations: {
       type: Array,

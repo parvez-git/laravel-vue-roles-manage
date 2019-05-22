@@ -44,7 +44,7 @@ Route::post('/chat-conversation/send', 'ChatController@sendConversation');
 Route::post('/settings-upload', 'SettingController@uploadProfilePicture');
 
 
-Route::group(['middleware' => ['role:admin']], function () {
+Route::group(['middleware' => ['auth','role:admin']], function () {
     Route::get('/admin', function() {
         return 'Admin area';
     });
